@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:clickable="false">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="@dimen/dp_110"
+            android:layout_height="@dimen/dp_110"
+            android:indeterminate="true"
+            android:indeterminateDrawable="@drawable/my_progress_indeterminate"
+            android:layout_centerInParent="true"
+            android:clickable="false"/>
+
+        <ImageView
+            android:id="@+id/textView1"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_100"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/pb_logo_white"
+            android:clickable="false"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/text_view_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_2"
+        android:textAllCaps="false"
+        android:textColor="@color/pb_gray_50_white"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="normal"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="15"
+        android:shadowColor="@color/black"/>
+
+
+</LinearLayout>

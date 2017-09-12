@@ -1,0 +1,130 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/liner_lay_product_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="4"
+        android:gravity="center_vertical"
+        android:elevation="@dimen/dp_2"
+        android:layout_marginLeft="@dimen/dp_2"
+        android:layout_marginRight="@dimen/dp_2"
+        android:layout_marginTop="@dimen/dp_2"
+        android:layout_marginBottom="@dimen/dp_3"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingLeft="@dimen/dp_8"
+        android:paddingRight="@dimen/dp_8"
+        android:paddingBottom="@dimen/dp_8"
+        android:background="@drawable/edit_text_white_bg"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/linear_layout_task_item"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3.2"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+                <RelativeLayout
+                    android:id="@+id/relative_lay_route_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_2">
+                    <ImageView
+                        android:id="@+id/imageView_route_order"
+                        android:layout_width="@dimen/dp_40"
+                        android:layout_height="@dimen/dp_40"
+                        android:padding="@dimen/dp_3"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/circle_background_magenta"/>
+                    <TextView
+                        android:id="@+id/textView_route_order"
+                        android:layout_width="@dimen/dp_25"
+                        android:layout_height="@dimen/dp_25"
+                        android:gravity="center"
+                        android:layout_centerInParent="true"
+                        android:text="2"
+                        android:textSize="@dimen/sp_14"
+                        android:textColor="@color/pb_gray_50_white"
+                        android:shadowColor="@color/pb_gray_700_black"
+                        android:shadowDy="1"
+                        android:shadowDx="1"
+                        android:shadowRadius="5"
+                        />
+                </RelativeLayout>
+                <LinearLayout
+                    android:id="@+id/linear_lay_name_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/dp_5"
+                    android:orientation="vertical">
+                    <TextView
+                        android:id="@+id/textView_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/pb_gray_700_black"
+                        android:textSize="@dimen/sp_15"
+                        android:text="Pawan Kumar"
+                        android:shadowDx="2"
+                        android:shadowDy="2"
+                        android:shadowRadius="2"
+                        android:shadowColor="@color/pb_gray_300_button_pressed"  />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dp_3"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/textView_address_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/pb_gray_700_black"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:text="@string/address"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="2"
+                    android:shadowColor="@color/pb_gray_300_button_pressed"  />
+                <TextView
+                    android:id="@+id/textView_address_colon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/pb_gray_700_black"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_marginLeft="@dimen/dp_1"
+                    android:text="@string/colon"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="2"
+                    android:shadowColor="@color/pb_gray_300_button_pressed"  />
+                <TextView
+                    android:id="@+id/textView_address_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/pb_gray_700_black"
+                    android:textSize="@dimen/sp_12"
+                    android:layout_marginLeft="@dimen/dp_5"
+                    android:text="170 W 23 At 7 Ave, New Your, NY"
+                    android:shadowDx="2"
+                    android:shadowDy="2"
+                    android:shadowRadius="2"
+                    android:shadowColor="@color/pb_gray_300_button_pressed"  />
+            </LinearLayout>
+
+        </LinearLayout>,
+
+    </LinearLayout>
+
+</RelativeLayout>

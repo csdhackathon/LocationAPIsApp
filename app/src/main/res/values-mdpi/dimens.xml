@@ -1,0 +1,70 @@
+<resources>
+
+    <!--  Calculation Used ::  XML_VALUE * 0.75 = __  -->
+    <string name="device_type">mdpi</string>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">12dp</dimen>
+    <dimen name="activity_vertical_margin">12dp</dimen>
+    <dimen name="fab_margin">12dp</dimen>
+
+    <dimen name="dp_1_negative">-0.75dp</dimen>
+    <dimen name="dp_3_negative">-2.25dp</dimen>
+    <dimen name="dp_4_negative">-3dp</dimen>
+    <dimen name="dp_25_negative">-18.75dp</dimen>
+
+    <dimen name="dp_1">0.75dp</dimen>
+    <dimen name="dp_0.5">0.375dp</dimen>
+    <dimen name="dp_1.5">1.125dp</dimen>
+    <dimen name="dp_2">1.5dp</dimen>
+    <dimen name="dp_3">2.25dp</dimen>
+    <dimen name="dp_4">3dp</dimen>
+    <dimen name="dp_5">3.75dp</dimen>
+    <dimen name="dp_8">6dp</dimen>
+    <dimen name="dp_10">7.5dp</dimen>
+    <dimen name="dp_12">9dp</dimen>
+    <dimen name="dp_15">11.25dp</dimen>
+    <dimen name="dp_20">15dp</dimen>
+    <dimen name="dp_22">16.5dp</dimen>
+    <dimen name="dp_25">18.75dp</dimen>
+    <dimen name="dp_30">22.5dp</dimen>
+    <dimen name="dp_35">26.25dp</dimen>
+    <dimen name="dp_40">30dp</dimen>
+    <dimen name="dp_50">37.5dp</dimen>
+    <dimen name="dp_55">41.25dp</dimen>
+    <dimen name="dp_80">60dp</dimen>
+    <dimen name="dp_90">67.5dp</dimen>
+    <dimen name="dp_95">71.25dp</dimen>
+    <dimen name="dp_100">75dp</dimen>
+    <dimen name="dp_105">78.75dp</dimen>
+    <dimen name="dp_110">82.5dp</dimen>
+    <dimen name="dp_120">90dp</dimen>
+    <dimen name="dp_125">93.75dp</dimen>
+    <dimen name="dp_130">97.5dp</dimen>
+    <dimen name="dp_135">101.25dp</dimen>
+    <dimen name="dp_140">105dp</dimen>
+    <dimen name="dp_145">108.75dp</dimen>
+    <dimen name="dp_155">116.25dp</dimen>
+    <dimen name="dp_170">127.5dp</dimen>
+    <dimen name="dp_180">135dp</dimen>
+    <dimen name="dp_200">150dp</dimen>
+    <dimen name="dp_210">157.5dp</dimen>
+    <dimen name="dp_250">187.5dp</dimen>
+    <dimen name="dp_350">262.5dp</dimen>
+
+
+    <dimen name="sp_5">5sp</dimen>
+    <dimen name="sp_8">8sp</dimen>
+    <dimen name="sp_10">10sp</dimen>
+    <dimen name="sp_12">12sp</dimen>
+    <dimen name="sp_14">14sp</dimen>
+    <dimen name="sp_15">15sp</dimen>
+    <dimen name="sp_16">16sp</dimen>
+    <dimen name="sp_17">17sp</dimen>
+    <dimen name="sp_18">18sp</dimen>
+    <dimen name="sp_20">20sp</dimen>
+    <dimen name="sp_22">22sp</dimen>
+    <dimen name="sp_25">25sp</dimen>
+    <dimen name="sp_30">30sp</dimen>
+    <dimen name="sp_60">60sp</dimen>
+
+</resources>

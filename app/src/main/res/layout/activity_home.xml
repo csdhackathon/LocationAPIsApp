@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.HomeActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/blue_magenta_gradient_left_to_right">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_55"
+        android:background="@drawable/blue_magenta_gradient_left_to_right">
+
+        <TextView
+            android:id="@+id/textView_screen_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textColor="@color/pb_gray_50_white"
+            android:textSize="@dimen/sp_16"
+            android:text="@string/todays_shipment"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:shadowColor="@color/pb_gray_300_button_pressed" />
+
+        <RelativeLayout
+            android:layout_width="@dimen/dp_55"
+            android:layout_height="@dimen/dp_55"
+            android:layout_alignParentRight="true"
+            android:background="?attr/selectableItemBackground">
+
+            <ImageView
+                android:id="@+id/imageView_config_apis"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="@dimen/dp_12"
+                android:scaleType="fitXY"
+                android:src="@drawable/config_api"/>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0.5"
+            android:background="@drawable/blue_magenta_gradient_left_to_right"
+            android:elevation="@dimen/dp_1"
+            android:layout_margin="@dimen/dp_1"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView_no_data_available"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/dp_25"
+        android:paddingTop="@dimen/dp_5"
+        android:paddingBottom="@dimen/dp_50"
+        android:layout_centerInParent="true"
+        android:textColor="@color/pb_gray_blue"
+        android:textSize="@dimen/sp_14"
+        android:text="@string/no_data_available"
+        android:visibility="gone"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="2"
+        android:shadowColor="@color/pb_gray_300_button_pressed"
+        />
+
+
+    <RelativeLayout
+        android:id="@+id/relative_lay_select_customers"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_margin="@dimen/dp_5"
+        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground">
+        <Button
+            android:id="@+id/button_select_customers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@drawable/selector_blue_button_bg"
+            android:contentDescription="@string/app_name"
+            android:padding="@dimen/dp_8"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:text="@string/next_select_customers"
+            android:textAllCaps="false"
+            android:textColor="@color/pb_gray_50_white"
+            android:textSize="@dimen/sp_15"
+            android:textStyle="normal" />
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view_tasks_list"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:stackFromBottom="true"
+        android:transcriptMode="normal"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginLeft="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_5"
+        android:layout_above="@id/relative_lay_select_customers"
+        android:layout_below="@id/header"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground"/>
+
+</RelativeLayout>
