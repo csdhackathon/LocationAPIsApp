@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/blue_magenta_gradient_left_to_right">
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_55"
+        android:background="@drawable/blue_magenta_gradient_left_to_right">
+
+        <LinearLayout
+            android:id="@+id/linear_lay_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:layout_marginLeft="@dimen/dp_3"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="@dimen/dp_20"
+                android:layout_height="@dimen/dp_20"
+                android:src="@drawable/back_arrow"
+                android:scaleType="fitXY"/>
+            <TextView
+                android:id="@+id/textView_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/pb_gray_50_white"
+                android:textSize="@dimen/sp_16"
+                android:text="@string/back"
+                android:layout_marginLeft="@dimen/dp_3_negative"
+                android:paddingRight="@dimen/dp_5"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="2"
+                android:shadowColor="@color/pb_gray_300_button_pressed" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView_screen_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_110"
+            android:layout_marginRight="@dimen/dp_110"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textColor="@color/pb_gray_50_white"
+            android:textSize="@dimen/sp_16"
+            android:text="@string/select_customers"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:shadowColor="@color/pb_gray_300_button_pressed" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0.5"
+            android:background="@drawable/blue_magenta_gradient_left_to_right"
+            android:elevation="@dimen/dp_1"
+            android:layout_margin="@dimen/dp_1"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/linear_lay_input_travel_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/header"
+        android:layout_margin="@dimen/dp_2"
+        android:padding="@dimen/dp_8"
+        android:orientation="vertical"
+        android:background="@android:drawable/edit_text">
+        <TextView
+            android:id="@+id/textView_enter_travel_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/select_drive_time"
+            android:textColor="@color/pb_gray_700_black"
+            android:textSize="@dimen/sp_18"
+            android:paddingLeft="@dimen/dp_5"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:shadowColor="@color/pb_gray_300_button_pressed" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="3"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_40"
+                android:layout_margin="@dimen/dp_5"
+                android:background="@android:drawable/edit_text"
+                android:layout_weight="1.7">
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40"
+                    android:gravity="center"
+                    android:prompt="@string/drive_time"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_40"
+                android:layout_weight="1.3"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="?attr/selectableItemBackground">
+                <Button
+                    android:id="@+id/button_find_customers"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/selector_blue_button_bg"
+                    android:contentDescription="@string/app_name"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="@string/find_customers"
+                    android:textAllCaps="false"
+                    android:textColor="@color/pb_gray_50_white"
+                    android:textSize="@dimen/sp_14"
+                    android:textStyle="normal" />
+            </RelativeLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/relative_lay_preview_marketing_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_40"
+        android:layout_margin="@dimen/dp_3"
+        android:layout_alignParentBottom="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:background="?attr/selectableItemBackground">
+        <Button
+            android:id="@+id/button_preview_marketing_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:background="@drawable/selector_blue_button_bg"
+            android:contentDescription="@string/app_name"
+            android:padding="@dimen/dp_5"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:text="@string/preview_marketing_content"
+            android:textAllCaps="false"
+            android:textColor="@color/pb_gray_50_white"
+            android:textSize="@dimen/sp_15"
+            android:textStyle="normal" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/linear_lay_input_travel_time"
+        android:layout_above="@id/relative_lay_preview_marketing_content"
+        android:elevation="@dimen/dp_5">
+        <org.osmdroid.views.MapView
+            android:id="@+id/map_view_tab_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp_2" />
+    </RelativeLayout>
+
+</RelativeLayout>

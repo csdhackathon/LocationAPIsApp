@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:clickable="false">
+
+
+    <com.pb.locationapis.utility.GIFView
+        android:layout_width="@dimen/dp_155"
+        android:layout_height="@dimen/dp_25"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center_vertical"
+        android:src="@drawable/ajax_loader"
+        />
+
+    <TextView
+        android:id="@+id/text_view_message"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/dp_2"
+        android:textAllCaps="false"
+        android:textColor="@color/pb_gray_50_white"
+        android:textSize="@dimen/sp_16"
+        android:textStyle="normal"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="15"
+        android:shadowColor="@color/black"/>
+
+
+</LinearLayout>

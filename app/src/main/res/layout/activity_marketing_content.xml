@@ -1,0 +1,100 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_55"
+        android:background="@drawable/blue_magenta_gradient_left_to_right">
+
+        <LinearLayout
+            android:id="@+id/linear_lay_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible"
+            android:layout_marginLeft="@dimen/dp_3"
+            android:gravity="center_vertical">
+            <ImageView
+                android:layout_width="@dimen/dp_15"
+                android:layout_height="@dimen/dp_15"
+                android:src="@drawable/back_arrow"
+                android:scaleType="fitXY"/>
+            <TextView
+                android:id="@+id/textView_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/pb_gray_50_white"
+                android:textSize="@dimen/sp_14"
+                android:text="@string/back"
+                android:layout_marginLeft="@dimen/dp_3_negative"
+                android:paddingRight="@dimen/dp_5"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="2"
+                android:shadowColor="@color/pb_gray_300_button_pressed" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView_screen_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_110"
+            android:layout_marginRight="@dimen/dp_110"
+            android:gravity="center"
+            android:layout_centerInParent="true"
+            android:textColor="@color/pb_gray_50_white"
+            android:textSize="@dimen/sp_16"
+            android:text="@string/marketing_content"
+            android:shadowDx="2"
+            android:shadowDy="2"
+            android:shadowRadius="2"
+            android:shadowColor="@color/pb_gray_300_button_pressed" />
+
+        <RelativeLayout
+            android:id="@+id/relative_lay_print"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_30"
+            android:layout_margin="@dimen/dp_5"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground">
+            <Button
+                android:id="@+id/button_print"
+                android:layout_width="@dimen/dp_55"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:background="@drawable/selector_blue_button_bg"
+                android:contentDescription="@string/app_name"
+                android:gravity="center"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:text="@string/print"
+                android:textAllCaps="false"
+                android:textColor="@color/pb_gray_50_white"
+                android:textSize="@dimen/sp_14"
+                android:textStyle="normal" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_0.5"
+            android:background="@drawable/blue_magenta_gradient_left_to_right"
+            android:elevation="@dimen/dp_1"
+            android:layout_margin="@dimen/dp_1"
+            android:layout_alignParentBottom="true"/>
+    </RelativeLayout>
+
+    <WebView
+        android:id="@+id/marketing_content_webview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/header"
+        android:layout_gravity="center"
+        android:padding="@dimen/dp_8"/>
+
+</RelativeLayout>
