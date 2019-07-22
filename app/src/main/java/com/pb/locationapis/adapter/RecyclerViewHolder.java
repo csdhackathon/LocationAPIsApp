@@ -1,7 +1,7 @@
 package com.pb.locationapis.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,13 +30,6 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
             mImageViewRouteOrder = (ImageView) itemView.findViewById(R.id.imageView_route_order);
             mLinearLayoutTaskItem = (LinearLayout) itemView.findViewById(R.id.linear_layout_task_item);
-
-            Utility.getInstance(context).setFontRegular(mTextViewName);
-            Utility.getInstance(context).setFontRegular(mTextViewRouteOrder);
-            Utility.getInstance(context).setFontRegular(mTextViewAddress1);
-            Utility.getInstance(context).setFontRegular((TextView) itemView.findViewById(R.id.textView_address_level));
-
-            Utility.getInstance(context).setFontRegular((TextView) itemView.findViewById(R.id.textView_address_colon));
         } catch (Exception e ) {
             e.printStackTrace();
         }

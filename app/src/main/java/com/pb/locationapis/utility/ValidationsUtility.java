@@ -14,26 +14,22 @@ import com.pb.locationapis.R;
 public class ValidationsUtility {
 
     private static  ValidationsUtility _instance;
-    private static Context mContext;
 
     /**
      * Constructor is defined as PRIVATE, as following the Singleton Design Pattern
      */
-    private ValidationsUtility(Context context) {
-        mContext = context;
-    }
+    private ValidationsUtility() {}
 
     /**
      * To get the instance object of the class
      * @return _instance
      */
-    public static ValidationsUtility getInstance(Context context) {
+    public static ValidationsUtility getInstance() {
 
         try
         {
-             mContext = context;
             if (_instance == null) {
-                _instance = new ValidationsUtility(context);
+                _instance = new ValidationsUtility();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -46,10 +42,10 @@ public class ValidationsUtility {
      * @param mEditText
      * @param errorText
      */
-    public void setValidationError(EditText mEditText, String errorText)
+    public void setValidationError(Context context, EditText mEditText, String errorText)
     {
         try {
-            Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);
+            Animation shake = AnimationUtils.loadAnimation(context, R.anim.shake);
             mEditText.startAnimation(shake);
             mEditText.requestFocus();
             mEditText.setError(errorText);
@@ -63,10 +59,10 @@ public class ValidationsUtility {
      * @param mTextView
      * @param errorText
      */
-    public void setValidationError(TextView mTextView, String errorText)
+    public void setValidationError(Context context, TextView mTextView, String errorText)
     {
         try {
-            Animation shake = AnimationUtils.loadAnimation(mContext, R.anim.shake);
+            Animation shake = AnimationUtils.loadAnimation(context, R.anim.shake);
             mTextView.startAnimation(shake);
             mTextView.requestFocus();
             mTextView.setError(errorText);

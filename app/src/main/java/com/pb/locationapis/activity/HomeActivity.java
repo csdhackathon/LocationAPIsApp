@@ -5,19 +5,21 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.pb.locationapis.R;
 import com.pb.locationapis.adapter.RecyclerViewCustomAdapter;
 import com.pb.locationapis.asynctask.ParseResponseAsyncTask;
 import com.pb.locationapis.listener.INotifyGPSLocationListener;
 import com.pb.locationapis.listener.IParserEventListener;
+import com.pb.locationapis.manager.AppManager;
 import com.pb.locationapis.model.bo.routes.CustomerVo;
 import com.pb.locationapis.model.bo.routes.RoutesBO;
 import com.pb.locationapis.parser.ParserType;
@@ -42,7 +44,6 @@ import java.util.List;
 public class HomeActivity extends Activity implements IParserEventListener,INotifyGPSLocationListener {
 
     private final String TAG = HomeActivity.class.getSimpleName();
-    private static RoutesBO mRoutesBO;
 
     private RecyclerView mRecyclerView;
     private RecyclerViewCustomAdapter mRecyclerViewCustomAdapter;
@@ -51,23 +52,14 @@ public class HomeActivity extends Activity implements IParserEventListener,INoti
     private Utility mUtility;
     private ValidationsUtility mValidationsUtility;
 
-    public static void setmRoutesBO(RoutesBO mRoutesBO) {
-        HomeActivity.mRoutesBO = mRoutesBO;
-    }
-
-    public static RoutesBO getmRoutesBO() {
-        return HomeActivity.mRoutesBO;
-    }
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
             setContentView(R.layout.activity_home);
 
-            mUtility = Utility.getInstance(this);
-            mValidationsUtility = ValidationsUtility.getInstance(this);
+            mUtility = Utility.getInstance();
+            mValidationsUtility = ValidationsUtility.getInstance();
             GpsLocationTracker.initialize(HomeActivity.this, HomeActivity.this);
 
             JSONObject mJsonObject = new JSONObject(loadJSONFromAsset());
@@ -107,8 +99,8 @@ public class HomeActivity extends Activity implements IParserEventListener,INoti
 
             List<CustomerVo> mCustomerVoList = null;
 
-            if(getmRoutesBO() != null) {
-                mCustomerVoList = getmRoutesBO().getCustomerVos();
+            if(AppManager.getInstance().getRoutesBO() != null) {
+                mCustomerVoList = AppManager.getInstance().getRoutesBO().getCustomerVos();
             }
             else {
                 mCustomerVoList = new ArrayList<>();
@@ -169,7 +161,7 @@ public class HomeActivity extends Activity implements IParserEventListener,INoti
 
                 case PARSER_GET_ROUTE_FOR_AN_AGENT:
 
-                    setmRoutesBO(routesBO);
+                    AppManager.getInstance().setRoutesBO(routesBO);
                     initializeLayoutViews();
                     break;
 

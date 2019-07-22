@@ -2,7 +2,9 @@ package com.pb.locationapis.activity;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
+
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -54,7 +56,7 @@ public class MarketingContentActivity extends Activity {
                 }
             });
 
-            Utility.getInstance(this).hideSoftKeyboard(this);
+            Utility.getInstance().hideSoftKeyboard(this);
             CustomProgressDialogUtility.getInstance().showCustomProgressDialog(this, "", "");
             webview.getSettings().setJavaScriptEnabled(true);
             webview.setWebViewClient(new WebViewClient() {
@@ -64,9 +66,18 @@ public class MarketingContentActivity extends Activity {
                     super.onPageFinished(view, url);
                     try {
                         CustomProgressDialogUtility.getInstance().dismissProgressDialog();
-                        view.loadUrl("javascript:populate('customername', 'Joe Smith')");
-                        view.loadUrl("javascript:populate('addressdetails', '" + mFirstCustomerVo.getAddressLine1() +"')");
+                        if(mFirstCustomerVo != null) {
+                            //view.loadUrl("javascript:populate('customername', 'Joe Smith')");
+                            String name;
+                            if(TextUtils.isEmpty(mFirstCustomerVo.getName())) {
+                                name = "Joe Smith";
+                            } else {
+                                name = mFirstCustomerVo.getName();
 
+                            }
+                            view.loadUrl("javascript:populate('customername', \"" + name + "\")");
+                            view.loadUrl("javascript:populate('addressdetails', \"" + mFirstCustomerVo.getAddressLine1() +"\")");
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

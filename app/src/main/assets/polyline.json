@@ -1,6 +1,53 @@
 {
   "customerVO": [
     {
+      "customerId": 688,
+      "isCustomerActive": true,
+      "name": "Dennys Garment Shop",
+      "phone": "(212) 420-4735",
+      "status": 1,
+      "latitude": 40.703276,
+      "longitude": 40.703276,
+      "addressLine1": "107 George St, Brooklyn, NY 11237, USA",
+      "addressLine2": "",
+      "city": "New York",
+      "state": "NY",
+      "country": "USA",
+      "checkInCheckOutVO": {
+        "customerId": 688,
+        "expectedStartTime": 558,
+        "expectedFinishTime": 633,
+        "costs": 10.0,
+        "distanceCost": 14085.0,
+        "timeCost": 0.0,
+        "serviceCost": 14095.0,
+        "cicoId": 2981,
+        "isCheckinDone": false,
+        "isCheckoutDone": false,
+        "routeId": 114,
+        "agentArriveTime": "09:18",
+        "agentFinishTime": "10:33",
+        "routeOrder": 1
+      },
+      "customConstraintVO": {
+        "capacityDemand": 1,
+        "distance": 0.0,
+        "duration": 15.0,
+        "endTime": "11:30",
+        "fixed": 0.0,
+        "isCostsInvolve": false,
+        "service": 0.0,
+        "startTime": "10:30",
+        "time": 0.0,
+        "type": "service",
+        "wait": 0.0,
+        "startNEndTime": [
+          618,
+          678
+        ]
+      }
+    },
+    {
       "customerId": 474,
       "isCustomerActive": true,
       "name": "LIL Frankies Pizza",

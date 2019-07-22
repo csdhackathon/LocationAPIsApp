@@ -1,5 +1,6 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -7,71 +8,61 @@
         android:id="@+id/relative_lay_info_window"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:elevation="@dimen/dp_5"
+        android:elevation="2dp"
         android:background="@drawable/alert_dialog_bg">
         <LinearLayout
             android:id="@+id/linear_lay_name_address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:paddingTop="@dimen/dp_8"
-            android:paddingBottom="@dimen/dp_8"
-            android:paddingLeft="@dimen/dp_10">
+            android:padding="10dp">
             <TextView
                 android:id="@+id/textView_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nishant"
-                android:textSize="@dimen/sp_16"
+                android:textSize="20sp"
                 android:textColor="@color/pb_gray_700_black"
-                android:shadowDy="1"
-                android:shadowDx="1"
-                android:shadowRadius="2"
-                android:shadowColor="@color/colorPrimaryDark"/>
+                android:fontFamily="@font/precision_sans_w_rg"/>
             <TextView
                 android:id="@+id/textView_addressLine1"
-                android:layout_width="@dimen/dp_170"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:text="Schaghicoke, NY 12154, USA"
-                android:textSize="@dimen/sp_14"
+                android:textSize="18sp"
+                android:fontFamily="@font/precision_sans_w_lt"
                 android:textColor="@color/pb_gray_700_black"
-                android:shadowDy="1"
-                android:layout_marginTop="@dimen/dp_2"
-                android:shadowDx="1"
-                android:shadowRadius="2"
-                android:shadowColor="@color/colorPrimaryDark"/>
+                android:layout_marginTop="2dp"/>
             <TextView
                 android:id="@+id/textView_addressLine2"
-                android:layout_width="@dimen/dp_170"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 android:text="Schaghicoke, NY 12154, USA"
-                android:textSize="@dimen/sp_14"
-                android:textColor="@color/pb_gray_700_black"
-                android:shadowDy="1"
-                android:shadowDx="1"
-                android:shadowRadius="2"
-                android:shadowColor="@color/colorPrimaryDark"/>
+                android:textSize="18sp"
+                android:fontFamily="@font/precision_sans_w_lt"
+                android:textColor="@color/pb_gray_700_black"/>
         </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/relative_lay_info_button"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:visibility="gone"
-            android:elevation="@dimen/dp_2"
-            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_marginStart="5dp"
             android:background="@drawable/custom_ripple_without_border"
             android:clickable="true"
-            android:layout_toRightOf="@id/linear_lay_name_address"
-            android:layout_centerInParent="true">
+            android:layout_toEndOf="@id/linear_lay_name_address"
+            android:layout_centerInParent="true"
+            android:focusable="true">
             <ImageView
                 android:id="@+id/imageView_info"
-                android:layout_width="@dimen/dp_50"
-                android:layout_height="@dimen/dp_50"
-                android:padding="@dimen/dp_12"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:padding="10dp"
                 android:layout_centerInParent="true"
-                android:src="@drawable/info"  />
+                android:src="@drawable/info"
+                tools:ignore="ContentDescription" />
         </RelativeLayout>
     </RelativeLayout>
     <ImageView
@@ -79,7 +70,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/market_bubble_arrow"
         android:layout_centerHorizontal="true"
-        android:elevation="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_25_negative"
-        android:layout_below="@id/relative_lay_info_window"/>
+        android:layout_marginTop="-25dp"
+        android:layout_below="@id/relative_lay_info_window"
+        tools:ignore="ContentDescription" />
 </RelativeLayout>

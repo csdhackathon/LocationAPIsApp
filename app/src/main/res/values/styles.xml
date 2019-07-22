@@ -16,8 +16,8 @@
         <item name="colorAccent">@android:color/white</item>
         <item name="android:textColorPrimary">@color/pb_gray_200_light</item>
         <item name="android:background">@color/facebook_blue</item>
-        <item name="android:minHeight">@dimen/dp_10</item>
-        <item name="android:maxHeight">@dimen/dp_20</item>
+        <item name="android:minHeight">10dp</item>
+        <item name="android:maxHeight">20dp</item>
     </style>
 
     <style name="MyMaterialTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -28,6 +28,15 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowDisablePreview">true</item>
         <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <style name="MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <!-- Used for the buttons -->
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- Used for the title and text -->
+        <item name="android:textColorPrimary">@color/pb_gray_700_black</item>
+        <!-- Used for the background -->
+        <item name="android:background">@color/pb_gray_50_white</item>
     </style>
 
 </resources>

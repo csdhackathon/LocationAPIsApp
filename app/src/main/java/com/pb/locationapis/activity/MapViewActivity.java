@@ -8,19 +8,21 @@ import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.pb.locationapis.R;
 import com.pb.locationapis.infowindow.CustomerInfoWindow;
 import com.pb.locationapis.listener.INotifyGPSLocationListener;
+import com.pb.locationapis.manager.AppManager;
 import com.pb.locationapis.model.bo.routes.CustomerVo;
 import com.pb.locationapis.model.bo.routes.RoutesBO;
 import com.pb.locationapis.service.GpsLocationTracker;
@@ -90,7 +92,9 @@ public class MapViewActivity extends Activity implements INotifyGPSLocationListe
     private CustomerVo mFirstCustomerVo = null;
 
     private RoutesBO mRoutesBO;
-
+    private List<GeoPoint> mGeoPoints;
+    private GeocodeServiceResponseList geoCodeResponse = null;
+    private String errorMessageForGeoCodeResp = "";
 
 
     @Override
@@ -99,8 +103,8 @@ public class MapViewActivity extends Activity implements INotifyGPSLocationListe
         try {
             setContentView(R.layout.activity_map_view);
 
-            mValidationsUtility = ValidationsUtility.getInstance(this);
-            mUtility = Utility.getInstance(this);
+            mValidationsUtility = ValidationsUtility.getInstance();
+            mUtility = Utility.getInstance();
             mCustomAlertDialogUtility = CustomAlertDialogUtility.getInstance();
             mCustomProgressDialogUtility = CustomProgressDialogUtility.getInstance();
             mConstantUnits = ConstantUnits.getInstance();
@@ -123,15 +127,27 @@ public class MapViewActivity extends Activity implements INotifyGPSLocationListe
             //important! set your user agent to prevent getting banned from the osm servers
             Configuration.getInstance().load(MapViewActivity.this.getApplicationContext(), PreferenceManager.getDefaultSharedPreferences(MapViewActivity.this.getApplicationContext()));
 
-            mRoutesBO = HomeActivity.getmRoutesBO();
-
-            mUtility.setFontRegular((TextView) findViewById(R.id.textView_enter_travel_time));
+            mRoutesBO = AppManager.getInstance().getRoutesBO();
 
             mButtonFindCustomers = (Button) findViewById(R.id.button_find_customers);
             mButtonFindCustomers.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
+                    if(mMarkersCustomers != null && mMarkersCustomers.size() > 0) {
+                        if(mMapView != null) {
+                            for (int k = 0; k < mMarkersCustomers.size(); k++) {
+                                mMapView.getOverlays().remove(mMarkersCustomers.get(k));
+                            }
+                        }
+                    }
+                    if(mPolygonList != null && mPolygonList.size() > 0 ) {
+                        if(mMapView != null) {
+                            for (int k = 0; k < mPolygonList.size(); k++) {
+                                mMapView.getOverlays().remove(mPolygonList.get(k));
+                            }
+                        }
+                    }
                     String selectedTime = mSpinner.getSelectedItem().toString().replace(" Minutes", "").trim();
                     callGeoZoneServiceApi(selectedTime);
                 }
@@ -164,6 +180,7 @@ public class MapViewActivity extends Activity implements INotifyGPSLocationListe
             mButtonPreviewMarketingContent = (Button) findViewById(R.id.button_preview_marketing_content);
             mButtonPreviewMarketingContent.setEnabled(false);
             mButtonPreviewMarketingContent.setTextColor(ContextCompat.getColor(MapViewActivity.this, R.color.pb_gray_300_button_pressed));
+            mButtonPreviewMarketingContent.setBackground(ContextCompat.getDrawable(MapViewActivity.this, R.drawable.inactive_blue_button_bg));
             mButtonPreviewMarketingContent.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -196,7 +213,7 @@ public class MapViewActivity extends Activity implements INotifyGPSLocationListe
     private void callGeoZoneServiceApi(String travelTime) {
         try {
             mUtility.hideSoftKeyboard(MapViewActivity.this);
-            if(!mUtility.isConnectedToNetwork()) {
+            if(!mUtility.isConnectedToNetwork(MapViewActivity.this)) {
                 mCustomAlertDialogUtility.showCustomAlertDialog(MapViewActivity.this, mConstantUnits.EMPTY,
                         getResources().getString(R.string.check_your_internet_connectivity));
                 return;
@@ -236,8 +253,8 @@ public class MapViewActivity extends Activity implements INotifyGPSLocationListe
             try {
                 ApiClient defaultClient = pb.Configuration.getDefaultApiClient();
 
-                defaultClient.setoAuthApiKey(mUtility.getMetaDataFromManifest(mConstantUnits.PBGEOMAP_ACCESS_TOKEN));
-                defaultClient.setoAuthSecret(mUtility.getMetaDataFromManifest(mConstantUnits.PBGEOMAP_SECRET_KEY));
+                defaultClient.setoAuthApiKey(mUtility.getMetaDataFromManifest(mConstantUnits.PBGEOMAP_ACCESS_TOKEN, MapViewActivity.this));
+                defaultClient.setoAuthSecret(mUtility.getMetaDataFromManifest(mConstantUnits.PBGEOMAP_SECRET_KEY, MapViewActivity.this));
 
                 final LIAPIGeoZoneServiceApi api = new LIAPIGeoZoneServiceApi();
                 String costs = travelTime;
@@ -300,7 +317,7 @@ public class MapViewActivity extends Activity implements INotifyGPSLocationListe
 
     private void addPolygonOnMap(TravelBoundaries resp) {
         try {
-            List<GeoPoint> geoPoints=null;
+            mGeoPoints =null;
             if(mPolygonList != null && mPolygonList.size() > 0 ) {
                 if(mMapView != null) {
                     for (int k = 0; k < mPolygonList.size(); k++) {
@@ -312,37 +329,42 @@ public class MapViewActivity extends Activity implements INotifyGPSLocationListe
             List<List<List<Double>>> mCoordinatesList = resp.getTravelBoundary().getCosts().get(0).getGeometry().getCoordinates().get(0);
             for (int i=0; i< mCoordinatesList.size(); i++) {
                 mPolygonCoordinates = mCoordinatesList.get(i);
-                 geoPoints = new ArrayList<>();
+                mGeoPoints = new ArrayList<>();
 
                 for (int j = 0; j< mPolygonCoordinates.size(); j++) {
                     double lat = mPolygonCoordinates.get(j).get(1);
                     double lng = mPolygonCoordinates.get(j).get(0);
                     mLats.add(lat);
                     mLng.add(lng);
-                    geoPoints.add(new GeoPoint(lat, lng));
+                    mGeoPoints.add(new GeoPoint(lat, lng));
                 }
-                if(geoPoints.size() > 0) {
+                if(mGeoPoints.size() > 0) {
                     Polygon mPolygon = new Polygon();
 
-                    mPolygon.setPoints(geoPoints);
+                    mPolygon.setPoints(mGeoPoints);
                     mPolygon.setFillColor(Color.parseColor("#53009fff"));
                     mPolygon.setStrokeColor(Color.parseColor("#009fff"));
                     mPolygon.setStrokeWidth(3);
                     mPolygonList.add(mPolygon);
                 }
             }
-            if(mPolygonList != null && mPolygonList.size() > 0 ) {
-                for (int k = 0; k < mPolygonList.size(); k++) {
-                    mMapView.getOverlays().add(mPolygonList.get(k));
-                }
-            }
 
-            if(geoPoints!=null && geoPoints.size()>0){
-                BoundingBox bounding=getBoundingBox(geoPoints);
-                mMapView.zoomToBoundingBox(bounding,true);
-            }
+            loadPolygonOnMap();
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    private void loadPolygonOnMap() {
+        if(mPolygonList != null && mPolygonList.size() > 0 ) {
+            for (int i = 0; i < mPolygonList.size(); i++) {
+                mMapView.getOverlays().add(mPolygonList.get(i));
+            }
+        }
+
+        if(mGeoPoints !=null && mGeoPoints.size()>0){
+            BoundingBox bounding=getBoundingBox(mGeoPoints);
+            mMapView.zoomToBoundingBox(bounding,true);
         }
     }
 
@@ -371,11 +393,9 @@ public class MapViewActivity extends Activity implements INotifyGPSLocationListe
 
     private class MyGeoCodeAsyncTask extends AsyncTask<String, Void, String>{
 
-        private GeocodeServiceResponseList geoCodeResponse = null;
-        private String errorMessage = "";
-
         @Override
         protected void onPreExecute() {
+            geoCodeResponse = null;
         }
 
         @Override
@@ -387,8 +407,8 @@ public class MapViewActivity extends Activity implements INotifyGPSLocationListe
             try {
                 ApiClient defaultClient = pb.Configuration.getDefaultApiClient();
 
-                defaultClient.setoAuthApiKey(mUtility.getMetaDataFromManifest(mConstantUnits.PBGEOMAP_ACCESS_TOKEN));
-                defaultClient.setoAuthSecret(mUtility.getMetaDataFromManifest(mConstantUnits.PBGEOMAP_SECRET_KEY));
+                defaultClient.setoAuthApiKey(mUtility.getMetaDataFromManifest(mConstantUnits.PBGEOMAP_ACCESS_TOKEN, MapViewActivity.this));
+                defaultClient.setoAuthSecret(mUtility.getMetaDataFromManifest(mConstantUnits.PBGEOMAP_SECRET_KEY, MapViewActivity.this));
 
                 List<GeocodeAddress> addresses = new ArrayList<GeocodeAddress>();
 
@@ -422,7 +442,7 @@ public class MapViewActivity extends Activity implements INotifyGPSLocationListe
                 e.printStackTrace();
                 if(e != null && e.getMessage() != null) {
                     Log.i("GeoCode", "Cause" + e.getMessage());
-                    errorMessage = e.getMessage();
+                    errorMessageForGeoCodeResp = e.getMessage();
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -440,35 +460,17 @@ public class MapViewActivity extends Activity implements INotifyGPSLocationListe
 
             try {
                 Log.i("Result", result);
-                if(geoCodeResponse != null) {
-                    mButtonPreviewMarketingContent.setTextColor(ContextCompat.getColor(MapViewActivity.this, R.color.pb_gray_50_white));
-                    mButtonPreviewMarketingContent.setEnabled(true);
-                    List<GeocodeServiceResponse> mGeocodeServiceResponseList = geoCodeResponse.getResponses();
-                    mFirstCustomerVo = null;
-                    if(mMarkersCustomers != null && mMarkersCustomers.size() > 0) {
-                        if(mMapView != null) {
-                            for (int k = 0; k < mMarkersCustomers.size(); k++) {
-                                mMapView.getOverlays().remove(mMarkersCustomers.get(k));
-                            }
-                        }
-                    }
-                    mMarkersCustomers = new ArrayList<>();
-                    //Collections.reverse(mPolygonCoordinates);
-                    for (int i=0; i<mGeocodeServiceResponseList.size(); i++) {
-                        List<Candidate> mCandidateList = mGeocodeServiceResponseList.get(i).getCandidates();
-                        mCustomersCoordinates.add(mCandidateList.get(0).getGeometry().getCoordinates());
-                        if(isPointInPolygon(mCandidateList.get(0).getGeometry().getCoordinates(), mPolygonCoordinates )) {
-                            Log.i(TAG, "Customer : " + mCustomersCoordinates.get(i).toString());
-                            addMarkerOnMap(mCustomersCoordinates.get(i), mCandidateList.get(0).getFormattedLocationAddress());
-                        }
-                    }
-                }
+                mFirstCustomerVo = null;
+                loadMapForGeoCodeResponse();
                 mCustomProgressDialogUtility.dismissProgressDialog();
-                if(geoCodeResponse == null && !errorMessage.equalsIgnoreCase(mConstantUnits.EMPTY)) {
-                    if(errorMessage.contains("Exception")) {
-                        errorMessage = errorMessage.substring(errorMessage.indexOf("Exception") + "Exception".length() + 1).trim();
+                if(geoCodeResponse == null && !errorMessageForGeoCodeResp.equalsIgnoreCase(mConstantUnits.EMPTY)) {
+                    if(errorMessageForGeoCodeResp.contains("Exception")) {
+                        errorMessageForGeoCodeResp = errorMessageForGeoCodeResp.substring(errorMessageForGeoCodeResp.indexOf("Exception") + "Exception".length() + 1).trim();
                     }
-                    mCustomAlertDialogUtility.showCustomAlertDialog(MapViewActivity.this, mConstantUnits.EMPTY, errorMessage);
+                    mCustomAlertDialogUtility.showCustomAlertDialog(MapViewActivity.this, mConstantUnits.EMPTY, errorMessageForGeoCodeResp);
+                } else if(mFirstCustomerVo == null) {
+                    //Toast.makeText(MapViewActivity.this, "No customer found for selected drive time!", Toast.LENGTH_LONG).show();
+                    CustomAlertDialogUtility.getInstance().showCustomAlertDialog(MapViewActivity.this, "", "No customer found for selected drive time!");
                 }
             } catch (Exception e) {
                 mCustomProgressDialogUtility.dismissProgressDialog();
@@ -478,6 +480,37 @@ public class MapViewActivity extends Activity implements INotifyGPSLocationListe
 
         @Override
         protected void onProgressUpdate(Void... values) {
+        }
+    }
+
+    private void loadMapForGeoCodeResponse() {
+        if(geoCodeResponse != null) {
+            mButtonPreviewMarketingContent.setTextColor(ContextCompat.getColor(MapViewActivity.this, R.color.pb_gray_50_white));
+            mButtonPreviewMarketingContent.setBackground(ContextCompat.getDrawable(MapViewActivity.this, R.drawable.selector_blue_button_bg));
+            mButtonPreviewMarketingContent.setEnabled(true);
+            List<GeocodeServiceResponse> mGeocodeServiceResponseList = geoCodeResponse.getResponses();
+            if(mMarkersCustomers != null && mMarkersCustomers.size() > 0) {
+                if(mMapView != null) {
+                    for (int k = 0; k < mMarkersCustomers.size(); k++) {
+                        mMapView.getOverlays().remove(mMarkersCustomers.get(k));
+                    }
+                }
+            }
+            mMarkersCustomers = new ArrayList<>();
+            //Collections.reverse(mPolygonCoordinates);
+            for (int i=0; i<mGeocodeServiceResponseList.size(); i++) {
+                List<Candidate> mCandidateList = mGeocodeServiceResponseList.get(i).getCandidates();
+                mCustomersCoordinates.add(mCandidateList.get(0).getGeometry().getCoordinates());
+                if(isPointInPolygon(mCandidateList.get(0).getGeometry().getCoordinates(), mPolygonCoordinates )) {
+                    Log.i(TAG, "Customer : " + mCustomersCoordinates.get(i).toString());
+                    addMarkerOnMap(mCustomersCoordinates.get(i), mCandidateList.get(0).getFormattedLocationAddress());
+                }
+            }
+            if(mFirstCustomerVo == null) {
+                mButtonPreviewMarketingContent.setEnabled(false);
+                mButtonPreviewMarketingContent.setTextColor(ContextCompat.getColor(MapViewActivity.this, R.color.pb_gray_300_button_pressed));
+                mButtonPreviewMarketingContent.setBackground(ContextCompat.getDrawable(MapViewActivity.this, R.drawable.inactive_blue_button_bg));
+            }
         }
     }
 
@@ -537,7 +570,7 @@ public class MapViewActivity extends Activity implements INotifyGPSLocationListe
                 if(mRoutesBO.getCustomerVos().get(i).getLatitude().equalsIgnoreCase(String.valueOf(coordinates.get(1)))
                         && mRoutesBO.getCustomerVos().get(i).getLongitude().equalsIgnoreCase(String.valueOf(coordinates.get(0)))) {
                     mCustomerVo = mRoutesBO.getCustomerVos().get(i);
-                    if(mFirstCustomerVo == null) {
+                    if(mFirstCustomerVo == null || TextUtils.isEmpty(mFirstCustomerVo.getName())) {
                         mFirstCustomerVo = mCustomerVo;
                     }
                     return mCustomerVo;
@@ -545,7 +578,7 @@ public class MapViewActivity extends Activity implements INotifyGPSLocationListe
                 else if(mRoutesBO.getCustomerVos().get(i).getLatitude().equalsIgnoreCase(String.valueOf(coordinates.get(0)))
                         && mRoutesBO.getCustomerVos().get(i).getLongitude().equalsIgnoreCase(String.valueOf(coordinates.get(1)))) {
                     mCustomerVo = mRoutesBO.getCustomerVos().get(i);
-                    if(mFirstCustomerVo == null) {
+                    if(mFirstCustomerVo == null || TextUtils.isEmpty(mFirstCustomerVo.getName())) {
                         mFirstCustomerVo = mCustomerVo;
                     }
                     return mCustomerVo;
@@ -607,6 +640,8 @@ public class MapViewActivity extends Activity implements INotifyGPSLocationListe
         if(mMapUtility != null) {
             mMapUtility.setMyLocationMarker(mLocation, true);
         }
+        loadPolygonOnMap();
+        loadMapForGeoCodeResponse();
     }
 
 

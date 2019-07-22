@@ -43,8 +43,6 @@ public class CustomerInfoWindow extends InfoWindow {
             mTextViewAddressLine2 = (TextView) mView.findViewById(R.id.textView_addressLine2);
             mLinearLayoutNameAddress = (LinearLayout) mView.findViewById(R.id.linear_lay_name_address);
             mLinearLayoutNameAddress.bringToFront();
-            Utility.getInstance(getMapView().getContext()).setFontRegular(mTextViewName);
-            Utility.getInstance(getMapView().getContext()).setFontRegular(mTextViewAddressLine1);
             if(mCustomerVo.getName() != null && mCustomerVo.getName().isEmpty()) {
                 mTextViewName.setVisibility(View.GONE);
             }

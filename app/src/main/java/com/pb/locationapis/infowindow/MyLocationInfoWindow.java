@@ -38,8 +38,6 @@ public class MyLocationInfoWindow extends InfoWindow {
             mLinearLayoutNameAddress = (LinearLayout) mView.findViewById(R.id.linear_lay_name_address);
             mLinearLayoutNameAddress.bringToFront();
 
-            Utility.getInstance(getMapView().getContext()).setFontRegular(mTextViewName);
-            Utility.getInstance(getMapView().getContext()).setFontRegular(mTextViewAddressLine1);
 
             mTextViewName.setText("My Location"+ "   ");
             //mTextViewAddressLine1.setText(getMapView().getContext().getString(R.string.i_am_here)+ "   ");

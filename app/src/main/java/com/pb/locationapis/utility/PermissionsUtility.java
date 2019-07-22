@@ -3,7 +3,7 @@ package com.pb.locationapis.utility;
 import android.app.Activity;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.util.Log;
 
 import com.pb.locationapis.activity.SplashScreenActivity;
@@ -142,7 +142,7 @@ public class PermissionsUtility
                         }
                         else {
                             Log.i(TAG, "Permission Denied");
-                            DialogUtility.getInstance(mActivity).showCustomAlertDialog(mActivity, DialogUtility.DialogType.APP_PERMISSION_DIALOG);
+                            DialogUtility.getInstance().showCustomAlertDialog(mActivity, DialogUtility.DialogType.APP_PERMISSION_DIALOG);
                         }
                     }
                     catch (Exception e)	{

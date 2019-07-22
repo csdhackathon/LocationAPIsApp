@@ -2,8 +2,10 @@ package com.pb.locationapis.utility;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.view.ContextThemeWrapper;
+
+import com.pb.locationapis.R;
 
 /**
  * Created by NEX7IMH on 06-Jun-17.
@@ -48,7 +50,7 @@ public class CustomAlertDialogUtility {
             if(mAlertDialog != null && mAlertDialog.isShowing()) {
                 mAlertDialog.cancel();
             }
-            AlertDialog.Builder mBuilder = new AlertDialog.Builder(new ContextThemeWrapper(context, android.support.v7.appcompat.R.style.AlertDialog_AppCompat));
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.MyAlertDialogStyle));
             if(!title.equalsIgnoreCase(ConstantUnits.getInstance().EMPTY)) {
                 mBuilder.setTitle(title);
             }

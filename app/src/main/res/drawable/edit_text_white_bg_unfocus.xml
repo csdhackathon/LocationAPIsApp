@@ -9,9 +9,9 @@
     <solid
         android:color="@color/pb_gray_50_white" />
    <stroke
-        android:width="@dimen/dp_1"
+        android:width="1dp"
         android:color="@color/pb_gray_300_button_pressed" />
     
-    <corners android:radius="@dimen/dp_5" />
+    <corners android:radius="5dp" />
 
 </shape>

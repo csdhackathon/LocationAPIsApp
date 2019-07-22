@@ -2,17 +2,14 @@ package com.pb.locationapis.utility;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
-import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 
 import com.pb.locationapis.R;
 import com.pb.locationapis.infowindow.MyLocationInfoWindow;
@@ -28,11 +25,7 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Overlay;
-import org.osmdroid.views.overlay.Polygon;
 import org.osmdroid.views.overlay.ScaleBarOverlay;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Map Utility class that initialize the MapView with Pitney Bowes GeoMap API (Raster Tiles). This class also
@@ -55,7 +48,7 @@ public class MapUtility {
     public MapUtility(Activity activity, MapView mapView) {
         this.mActivity = activity;
         this.mConstantUnits = ConstantUnits.getInstance();
-        this.mUtility = Utility.getInstance(mActivity);
+        this.mUtility = Utility.getInstance();
         this.mMapView = mapView;
     }
 
@@ -94,7 +87,7 @@ public class MapUtility {
                 Resources r = context.getResources();
                 Bitmap bm = BitmapFactory.decodeResource(r, R.drawable.pitneyboweslogo);
                 Bitmap newBp= Bitmap.createScaledBitmap(bm,(int)(bm.getWidth()*0.8), (int)(bm.getHeight()*0.8), true);
-                overlay.setCopyRightText("@Carto ©OpenStreetMap Contributors");
+                overlay.setCopyRightText("©OpenStreetMap Contributors");
                 overlay.setTextColor(Color.DKGRAY);
                 overlay.setLogo(newBp);
                 mMapView.getOverlays().add(overlay);

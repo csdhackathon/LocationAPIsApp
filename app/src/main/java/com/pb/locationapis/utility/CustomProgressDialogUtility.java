@@ -2,7 +2,7 @@ package com.pb.locationapis.utility;
 
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -64,7 +64,9 @@ public class CustomProgressDialogUtility {
 
             mAlertDialog = builder.create();
             mAlertDialog.setCanceledOnTouchOutside(false);
-            mAlertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            if(mAlertDialog.getWindow() != null) {
+                mAlertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+            }
             mAlertDialog.show();
 
         } catch (Exception e) {

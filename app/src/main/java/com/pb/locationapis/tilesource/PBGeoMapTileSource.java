@@ -28,7 +28,7 @@ public class PBGeoMapTileSource  extends OnlineTileSourceBase{
 
     public PBGeoMapTileSource()
     {
-        super("PBGeoMapTiles", 1, 21, 256, ".png", geoMapBaseURL, "@Carto @OpenStreetMap");
+        super("PBGeoMapTiles", 1, 21, 256, ".png", geoMapBaseURL, "@OpenStreetMap");
     }
 
     /**
@@ -38,7 +38,7 @@ public class PBGeoMapTileSource  extends OnlineTileSourceBase{
      */
     public PBGeoMapTileSource(final Context ctx)
     {
-        super("PBGeoMapTiles", 1, 21, 256, ".png", geoMapBaseURL, "@Carto @OpenStreetMap");
+        super("PBGeoMapTiles", 1, 21, 256, ".png", geoMapBaseURL, "@OpenStreetMap");
         retrieveAccessToken(ctx);
         retrieveGeoMapThemeType(ctx);
 
@@ -52,7 +52,7 @@ public class PBGeoMapTileSource  extends OnlineTileSourceBase{
      */
     public PBGeoMapTileSource(final String geoMapTheme, final String accesstoken)
     {
-        super("PBGeoMapTiles", 1, 21, 256, ".png", PBGeoMapTileSource.geoMapBaseURL, "@Carto @OpenStreetMap");
+        super("PBGeoMapTiles", 1, 21, 256, ".png", PBGeoMapTileSource.geoMapBaseURL, "@OpenStreetMap");
         this.accessToken=accesstoken;
         this.geoMapThemeType =geoMapTheme;
 

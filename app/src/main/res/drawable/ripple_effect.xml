@@ -2,7 +2,8 @@
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:color="#af0c0e"
-    tools:targetApi="lollipop">
+    tools:targetApi="lollipop"
+    tools:keep="@drawable/ripple_effect">
     <item android:id="@android:id/mask">
         <shape android:shape="rectangle">
             <solid android:color="#af0c0e" />

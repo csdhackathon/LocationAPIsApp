@@ -12,7 +12,7 @@ import org.osmdroid.views.overlay.Overlay;
 
 /**
  * Class used to Create the Map Attributions. This class will add the Pitney Bowes Logo
- * as well as @Carto and @OpenStreetMap attribution on top of Map.
+ * as well as @OpenStreetMap attribution on top of Map.
  * @link https://locate.pitneybowes.com/docs/location-intelligence/v1/en/index.html#Appendix/appendix_o_mapattribution.html#appendixj
  */
 

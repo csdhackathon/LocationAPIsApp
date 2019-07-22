@@ -25,18 +25,18 @@ public class DialogUtility {
     /**
      * Constructor is defined as PRIVATE, as following the Singleton Design Pattern
      */
-    private DialogUtility(Context context) {
-        mUtility = Utility.getInstance(context);
+    private DialogUtility() {
+        mUtility = Utility.getInstance();
     }
 
     /**
      * To get the instance object of the class
      * @return _instance
      */
-    public static DialogUtility getInstance(Context context) {
+    public static DialogUtility getInstance() {
         try {
             if (_instance == null) {
-                _instance = new DialogUtility(context);
+                _instance = new DialogUtility();
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -94,7 +94,7 @@ public class DialogUtility {
                         public void onClick(DialogInterface dialog, int id) {
 
 
-                            if (mUtility.isConnectedToNetwork()) {
+                            if (mUtility.isConnectedToNetwork(mCtx)) {
                                 try {
                                     dialog.cancel();
                                     if(GpsLocationTracker.isGpEnabled(mCtx)) {

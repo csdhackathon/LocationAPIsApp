@@ -6,14 +6,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
+import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 import android.view.ContextThemeWrapper;
 
 import com.pb.locationapis.R;
 import com.pb.locationapis.service.GpsLocationTracker;
 import com.pb.locationapis.utility.ConstantUnits;
-import com.pb.locationapis.utility.CustomAlertDialogUtility;
 import com.pb.locationapis.utility.DialogUtility;
 import com.pb.locationapis.utility.PermissionsUtility;
 import com.pb.locationapis.utility.Utility;
@@ -41,7 +40,7 @@ public class SplashScreenActivity extends Activity {
         super.onCreate(savedInstanceState);
         try {
             setContentView(R.layout.activity_splash);
-            mUtility = Utility.getInstance(SplashScreenActivity.this);
+            mUtility = Utility.getInstance();
             mConstantUnits = ConstantUnits.getInstance();
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,7 +55,7 @@ public class SplashScreenActivity extends Activity {
             if (PermissionsUtility.getInstance(this).checkPermissions(mPermissions))
             {
                 Log.i(TAG, "@onStart Permissions granted");
-                if(mUtility.isConnectedToNetwork() && GpsLocationTracker.isGpEnabled(SplashScreenActivity.this)) {
+                if(mUtility.isConnectedToNetwork(SplashScreenActivity.this) && GpsLocationTracker.isGpEnabled(SplashScreenActivity.this)) {
 
                     GpsLocationTracker.initialize(SplashScreenActivity.this, null);
                     GpsLocationTracker.getInstance().connect();
@@ -72,7 +71,7 @@ public class SplashScreenActivity extends Activity {
     protected void onStop() {
         super.onStop();
         try {
-            if(isAllPermissionGranted && mUtility.isConnectedToNetwork()
+            if(isAllPermissionGranted && mUtility.isConnectedToNetwork(SplashScreenActivity.this)
                     && GpsLocationTracker.getInstance() != null) {
                 GpsLocationTracker.getInstance().disConnect();
             }
@@ -93,7 +92,7 @@ public class SplashScreenActivity extends Activity {
                 GpsLocationTracker.initialize(SplashScreenActivity.this, null);
                 GpsLocationTracker.getInstance().connect();
             }
-            /*if(mUtility.isConnectedToNetwork())  {
+            /*if(mUtility.isConnectedToNetwork(SplashScreenActivity.this))  {
 
             }
             else {
@@ -118,8 +117,8 @@ public class SplashScreenActivity extends Activity {
             new android.os.Handler().postDelayed(
                     new Runnable() {
                         public void run() {
-                            if(!mUtility.getMetaDataFromManifest(mConstantUnits.PBGEOMAP_ACCESS_TOKEN).equalsIgnoreCase(mConstantUnits.EMPTY)
-                                    && !mUtility.getMetaDataFromManifest(mConstantUnits.PBGEOMAP_SECRET_KEY).equalsIgnoreCase(mConstantUnits.EMPTY)) {
+                            if(!mUtility.getMetaDataFromManifest(mConstantUnits.PBGEOMAP_ACCESS_TOKEN, SplashScreenActivity.this).equalsIgnoreCase(mConstantUnits.EMPTY)
+                                    && !mUtility.getMetaDataFromManifest(mConstantUnits.PBGEOMAP_SECRET_KEY, SplashScreenActivity.this).equalsIgnoreCase(mConstantUnits.EMPTY)) {
                                 Intent intent = null;
                                 intent = new Intent(SplashScreenActivity.this, HomeActivity.class);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -143,7 +142,7 @@ public class SplashScreenActivity extends Activity {
             if(mAlertDialog != null && mAlertDialog.isShowing()) {
                 mAlertDialog.cancel();
             }
-            AlertDialog.Builder mBuilder = new AlertDialog.Builder(new ContextThemeWrapper(context, android.support.v7.appcompat.R.style.AlertDialog_AppCompat));
+            AlertDialog.Builder mBuilder = new AlertDialog.Builder(new ContextThemeWrapper(context, R.style.MyAlertDialogStyle));
             mBuilder.setCancelable(false);
             if(!title.equalsIgnoreCase(ConstantUnits.getInstance().EMPTY)) {
                 mBuilder.setTitle(title);

@@ -12,7 +12,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.design.widget.TextInputLayout;
+import com.google.android.material.textfield.TextInputLayout;
 import android.telephony.TelephonyManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
@@ -32,15 +32,13 @@ import java.util.UUID;
  */
 public class Utility {
     private static Utility _instance;
-    private Context mContext;
     private ConstantUnits mConstantUnits;
     private static final String TAG = Utility.class.getName();
 
     /**
      * Constructor is defined as PRIVATE, as following the Singleton Design Pattern
      */
-    private Utility(Context context) {
-        this.mContext = context;
+    private Utility() {
         this.mConstantUnits = ConstantUnits.getInstance();
     }
 
@@ -49,10 +47,10 @@ public class Utility {
      *
      * @return _instance
      */
-    public synchronized static Utility getInstance(Context context) {
+    public synchronized static Utility getInstance() {
 
         if (_instance == null) {
-            _instance = new Utility(context);
+            _instance = new Utility();
         }
         return _instance;
     }
@@ -63,7 +61,7 @@ public class Utility {
      * @return true :if your device is connected to internet. false :if your
      * device is not connected to internet.
      */
-    public boolean isConnectedToNetwork() {
+    public boolean isConnectedToNetwork(Context mContext) {
 
         try {
             ConnectivityManager manager = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -77,83 +75,6 @@ public class Utility {
         }
         return true;
     }
-
-    /**
-     * This method is used to set the font style to TextView font to Bold style.
-     *
-     * @param textView
-     */
-    public void setFontBold(TextView textView) {
-        Typeface typeFace = Typeface.createFromAsset(mContext.getAssets(), "fonts/PrecisionSans_W_Bd.ttf");
-        textView.setTypeface(typeFace);
-    }
-
-    /**
-     * This method is used to set the font style to TextInputLayout font to Bold style.
-     *
-     * @param textInputLayout
-     */
-    public void setFontBold(TextInputLayout textInputLayout) {
-        Typeface typeFace = Typeface.createFromAsset(mContext.getAssets(), "fonts/PrecisionSans_W_Bd.ttf");
-        textInputLayout.setTypeface(typeFace);
-    }
-
-    /**
-     * This method is used to set the font style to TextView font to Regular style.
-     *
-     * @param textView
-     */
-    public void setFontRegular(TextView textView) {
-        Typeface typeFace = Typeface.createFromAsset(mContext.getAssets(), "fonts/PrecisionSans_W_Rg.ttf");
-        textView.setTypeface(typeFace);
-    }
-
-    /**
-     * This method is used to set the font style to TextInputLayout font to Regular style.
-     *
-     * @param textInputLayout
-     */
-    public void setFontRegular(TextInputLayout textInputLayout) {
-        Typeface typeFace = Typeface.createFromAsset(mContext.getAssets(), "fonts/PrecisionSans_W_Rg.ttf");
-        textInputLayout.setTypeface(typeFace);
-    }
-
-    /**
-     * This method is used to get the device id or Secure ANDROID_ID if device id is null.
-     *
-     * @param context
-     * @return - device id
-     */
-    public static String getDeviceId(Context context) {
-
-        String deviceId = null;
-        try {
-            try {
-                TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-                if (telephonyManager != null)
-                    deviceId = telephonyManager.getDeviceId();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            try {
-                if (deviceId == null) {
-                    deviceId = Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            if (deviceId == null) {
-                UUID uuid = UUID.randomUUID();
-                deviceId = String.valueOf(uuid);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return deviceId;
-    }
-
 
     /**
      * This method is used to hide the input soft keyboard is appearing
@@ -171,7 +92,7 @@ public class Utility {
      * @param key
      * @return
      */
-    public String getMetaDataFromManifest(String key) {
+    public String getMetaDataFromManifest(String key, Context mContext) {
         String value = mConstantUnits.EMPTY;
         try {
             ApplicationInfo ai = mContext.getPackageManager().getApplicationInfo(
@@ -242,7 +163,7 @@ public class Utility {
      * @param mResponseJsonObject
      * @return
      */
-    public String getErrorResponseMessage(JSONObject mResponseJsonObject) {
+    public String getErrorResponseMessage(JSONObject mResponseJsonObject, Context mContext) {
         String message = ConstantUnits.getInstance().EMPTY;
         try {
             if (mResponseJsonObject != null) {

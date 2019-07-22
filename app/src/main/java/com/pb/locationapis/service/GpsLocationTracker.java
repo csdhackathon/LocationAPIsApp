@@ -16,9 +16,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AlertDialog;
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.appcompat.app.AlertDialog;
 import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -89,8 +89,8 @@ public class GpsLocationTracker extends Service implements LocationListener,
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
     private HashMap<String, String> locationMapDetails;
-    private double m_latitude=Double.parseDouble("40.690549");
-    private double m_longitude=Double.parseDouble("-73.966133");
+    private double m_latitude=Double.parseDouble("40.703276");//40.690549   40.727445
+    private double m_longitude=Double.parseDouble("-73.929975");//-73.966133   -74.000349
 
     @Nullable
     @Override
@@ -450,7 +450,7 @@ public class GpsLocationTracker extends Service implements LocationListener,
         try {
             mLocation = getDefaultLocation();
             if(mLocation != null) {
-                if (iGPSListener != null && Utility.getInstance(mContext)
+                if (iGPSListener != null && Utility.getInstance()
                         .isLocationUpdateRequired(LAST_LOCATION_SAVED_TIME , TIME_INTERVAL_FOR_NEXT_LOCATION_UPDATE))
                 {
                     iGPSListener.onReceiveLocationDetails(mLocation);
@@ -512,7 +512,7 @@ public class GpsLocationTracker extends Service implements LocationListener,
                     }
                 }
             }
-            if(mLocation != null && Utility.getInstance(mContext)
+            if(mLocation != null && Utility.getInstance()
                     .isLocationUpdateRequired(LAST_LOCATION_SAVED_TIME , TIME_INTERVAL_FOR_NEXT_LOCATION_UPDATE))
             {
                 if(iGPSListener != null) {
@@ -529,10 +529,10 @@ public class GpsLocationTracker extends Service implements LocationListener,
     public void onLocationChanged(Location location)
     {
         try {
-            if(Utility.getInstance(mContext).
+            if(Utility.getInstance().
                     isLocationUpdateRequired(LAST_LOCATION_SAVED_TIME , TIME_INTERVAL_FOR_NEXT_LOCATION_UPDATE))
             {
-                LAST_LOCATION_SAVED_TIME = Utility.getInstance(mContext).getDateTimeForNextLocationUpdate(TIME_INTERVAL_FOR_NEXT_LOCATION_UPDATE);
+                LAST_LOCATION_SAVED_TIME = Utility.getInstance().getDateTimeForNextLocationUpdate(TIME_INTERVAL_FOR_NEXT_LOCATION_UPDATE);
                 mLocation = location;
                 longitude = mLocation.getLongitude();
                 latitude = mLocation.getLatitude();
@@ -582,12 +582,12 @@ public class GpsLocationTracker extends Service implements LocationListener,
                 Log.i(TAG, "@onConnected() Latitude::" + mLocation.getLatitude()+", Longitude:"+mLocation.getLongitude());
                 latitude = mLocation.getLatitude();
                 longitude = mLocation.getLongitude();
-                LAST_LOCATION_SAVED_TIME = Utility.getInstance(mContext).getDateTimeForNextLocationUpdate(TIME_INTERVAL_FOR_NEXT_LOCATION_UPDATE);
+                LAST_LOCATION_SAVED_TIME = Utility.getInstance().getDateTimeForNextLocationUpdate(TIME_INTERVAL_FOR_NEXT_LOCATION_UPDATE);
             }
             else {
                 Log.i(TAG, "@onConnected() Location not detected");
             }
-            if(mLocation != null && Utility.getInstance(mContext).
+            if(mLocation != null && Utility.getInstance().
                     isLocationUpdateRequired(LAST_LOCATION_SAVED_TIME , TIME_INTERVAL_FOR_NEXT_LOCATION_UPDATE))
             {
                 if(iGPSListener != null) {
